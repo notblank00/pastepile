@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     user = User.find_by(username: user_data[:username])
     if user&.authenticate(user_data[:password])
       session[:current_user_id] = user.id
-      redirect_to users_path
+      redirect_to root_path
     else
       invalid_credentials_error
     end
@@ -24,6 +24,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:current_user_id)
-    redirect_to signin_path
+    redirect_to root_path
   end
 end

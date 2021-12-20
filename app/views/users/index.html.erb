@@ -1,8 +1,12 @@
 <% flash[:notice]&.tap do |notice| %>
     <div class="alert alert-success"><%= notice %></div>
 <% end %>
-<h1>Users</h1>
 
+<div class="top-float">
+  <%= link_to 'New User', new_user_path, class: 'btn btn-outline-success col-12' %>
+</div>
+
+<h1>Users</h1>
 <table class="table table-hover">
   <thead>
     <tr>
@@ -32,10 +36,4 @@
     <% end %>
   </tbody>
 </table>
-
 <br>
-
-<div style="width: 200px">
-  <%= link_to 'New User', new_user_path, class: 'btn btn-primary col-12', style: 'margin-bottom: 5px' %>
-  <%= button_to 'Sign out', {controller: :sessions, action: :destroy, id: session[:session_id]}, method: :delete, class: 'btn btn-secondary col-12'%>
-</div>

@@ -33,9 +33,10 @@ class UsersController < ApplicationController
           flash[:notice] = 'User was successfully created'
           unless session[:current_user_id]
             session[:current_user_id] = @user.id
-            redirect_to @user
+            redirect_to pastes_new
+          else
+            redirect_to users_path
           end
-          redirect_to users_path
         end
         format.json { render :show, status: :created, location: @user }
       else
@@ -79,10 +80,8 @@ class UsersController < ApplicationController
   end
 
   def check_if_editing_admin
-    if @user.admin && !current_user.id == @user.id && !current_user.superuser
-      respond_to do |format|
-        format.all { render html: '405: Method Not Allowed', status: :method_not_allowed }
-      end
+    if @user.admin && !(current_user.id == @user.id) && !current_user.superuser
+      refuse_with_method_not_allowed
     end
   end
 
@@ -97,17 +96,13 @@ class UsersController < ApplicationController
 
   def check_admin_permission
     unless current_user.admin
-      respond_to do |format|
-        format.all { render html: '405: Method Not Allowed', status: :method_not_allowed }
-      end
+      refuse_with_method_not_allowed
     end
   end
 
   def check_admin_or_self_permission
     unless current_user.admin || current_user.id == params[:id].to_i
-      respond_to do |format|
-        format.all { render html: '405: Method Not Allowed', status: :method_not_allowed }
-      end
+      refuse_with_method_not_allowed
     end
   end
 end

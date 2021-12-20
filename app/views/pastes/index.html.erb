@@ -1,0 +1,35 @@
+<% flash[:notice]&.tap do |notice| %>
+    <div class="alert alert-success"><%= notice %></div>
+<% end %>
+
+<div class="top-float">
+  <%= link_to 'New Paste', new_paste_path, class: 'btn btn-outline-success col-12' %>
+</div>
+
+<h1>Pastes</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Language</th>
+      <th>Access</th>
+      <th>Owner</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pastes.each do |paste| %>
+      <tr>
+        <td><%= paste.name %></td>
+        <td><%= LANGUAGES.find { |pair| pair.last == paste.language }.first %></td>
+        <td><%= paste.private ? 'Private' : 'Public' %></td>
+        <td><%= paste.users_id ? User.find(paste.users_id).username : 'Anonymous' %></td>
+        <td><%= link_to 'Show', paste, class: 'btn btn-outline-primary btn-sm' %></td>
+        <td><%= link_to 'Edit', edit_paste_path(paste), class: 'btn btn-outline-primary btn-sm' %></td>
+        <td><%= link_to 'Delete', paste, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

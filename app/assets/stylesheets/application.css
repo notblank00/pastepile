@@ -13,3 +13,23 @@
  *= require_tree .
  *= require_self
  */
+.side-padded {
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+.uniform-control {
+  width: 400px;
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+.inner-control {
+  width: 300px;
+}
+
+.top-float {
+  width: 150px;
+  margin: 10px;
+  float: right;
+}

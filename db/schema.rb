@@ -10,19 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_18_160658) do
+ActiveRecord::Schema.define(version: 2021_12_19_162932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "pastes", force: :cascade do |t|
-    t.text "content"
-    t.boolean "private", default: false
-    t.integer "owner"
+    t.bigint "users_id"
+    t.string "name"
+    t.text "content", null: false
+    t.string "language"
+    t.boolean "private", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "owner_id"
-    t.index ["owner_id"], name: "index_pastes_on_owner_id"
+    t.index ["users_id"], name: "index_pastes_on_users_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -35,5 +36,4 @@ ActiveRecord::Schema.define(version: 2021_12_18_160658) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "pastes", "users", column: "owner_id"
 end

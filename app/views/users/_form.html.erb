@@ -22,9 +22,10 @@
     <%= form.password_field(:password_confirmation, class: "form-control col-12", required: true) %>
   <% end %>
   <% if current_user&.superuser %>
+    <script src="/form_checkbox_handler.js"></script>
     <div class="form-check">
-      <%= form.check_box :admin, class: "form-check-input" %>
-      <%= form.label :admin, "Is Admin", class: "form-check-label" %>
+      <%= form.check_box :admin, class: 'form-check-input'%>
+      <%= form.label :admin, 'Is Admin', class: 'form-check-label' %>
     </div>
     <div class="form-check">
       <%= form.check_box :superuser, class: "form-check-input" %>

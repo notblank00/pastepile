@@ -20,4 +20,10 @@ class ApplicationController < ActionController::Base
   def authenticate
     redirect_to signin_path unless current_user
   end
+
+  def refuse_with_method_not_allowed
+    respond_to do |format|
+      format.all { render html: File.read('public/405.html').html_safe, status: :method_not_allowed }
+    end
+  end
 end

@@ -1,6 +1,6 @@
-<h1>User data</h1>
+<h1>Account</h1>
 
-<div style="width: 400px; padding: 50px">
+<div class="uniform-control">
   <% flash[:notice]&.tap do |notice| %>
       <div class="alert alert-success"><%= notice %></div>
   <% end %>
@@ -26,7 +26,7 @@
   </p>
 
   <div class="btn-group col-12">
-  <% unless @user.admin && !@current_user.superuser %>
+  <% unless @user.admin && !@current_user.superuser && !(@user.id == @current_user.id) %>
     <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary'%>
   <% end %>
   <%= render 'back', current_user: @current_user %>

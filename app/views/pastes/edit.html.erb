@@ -1,0 +1,8 @@
+<h1>Editing Paste</h1>
+
+<%= render 'form', paste: @paste, current_user: @current_user %>
+<div class="btn-group col-12 uniform-control">
+  <%= link_to 'Show', @paste, class: 'btn btn-primary' %>
+  <%= render 'back' %>
+  <%= link_to 'Delete', @paste, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+</div>
