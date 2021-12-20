@@ -12,5 +12,5 @@ else
   confirm_message = 'Are you sure?'
 end %>
 
-<%= link_to 'Delete', { action: :destroy, id: user.id}, remote: false, method: :delete, data: { confirm: confirm_message },
+<%= link_to 'Delete', { action: :destroy, id: user.id}, method: :delete, data: { confirm: confirm_message },
   class: small ? 'btn btn-outline-danger btn-sm' : 'btn btn-danger' %>
