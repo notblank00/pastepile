@@ -6,7 +6,6 @@ class Paste < ApplicationRecord
 
   def set_default_values
     self.language = 'plaintext' if language.blank?
-    self.name = 'Untitled' if name.blank?
   end
 
   def anonymous?

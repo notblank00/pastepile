@@ -2,7 +2,7 @@
   <%= form_with(model: paste) do |form| %>
     <% if paste.errors.any? %>
       <div class="alert alert-danger" role="alert">
-        <b><%= pluralize(paste.errors.count, "error") %> prohibited this paste from being saved:</b>
+        <b><%= t 'forms.errors', count: paste.errors.count %></b>
         <ul>
           <% paste.errors.each do |error| %>
             <li><small>
@@ -14,22 +14,22 @@
     <% end %>
 
     <div style="float: right; width: calc(100% - 450px)">
-      <%= form.label :content, "Content:" %>
+      <%= form.label :content, t('activerecord.attributes.paste.content') %>
       <%= form.text_area :content, class: 'form-control', style: 'height: 700px; resize: none',
-                                   placeholder: 'Paste your code or text here!', autofocus: true%>
+                                   placeholder: t('forms.content_placeholder'), autofocus: true, autocomplete: 'off'%>
     </div>
     <div class="inner-control">
-      <%= form.label :name, "Name:" %>
-      <%= form.text_field :name, class: 'form-control', placeholder: 'Untitled' %>
-      <%= form.label :language, "Language:" %>
+      <%= form.label :name, t('activerecord.attributes.paste.name') %>
+      <%= form.text_field :name, class: 'form-control', placeholder: t('activerecord.attributes.paste.untitled'), autocomplete: 'off' %>
+      <%= form.label :language, t('activerecord.attributes.paste.language') %>
       <%= form.select :language, LANGUAGES, { include_blank: false }, class: 'form-select' %>
     </div>
     <% if current_user %>
       <div class="form-check">
-        <%= form.label :private, "Is private", class: 'form-check-label' %>
+        <%= form.label :private, t('activerecord.attributes.paste.private?'), class: 'form-check-label' %>
         <%= form.check_box :private, class: 'form-check-input' %>
       </div>
     <% end %>
-    <%= form.submit class: 'btn btn-primary inner-control' %>
+    <%= form.submit value: t('forms.submit'), class: 'btn btn-primary inner-control' %>
   <% end %>
 </div>

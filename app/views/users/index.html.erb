@@ -3,17 +3,17 @@
 <% end %>
 
 <div class="top-float">
-  <%= link_to 'New User', new_user_path, class: 'btn btn-outline-success col-12' %>
+  <%= link_to t('forms.new_user'), new_user_path, class: 'btn btn-outline-success col-12' %>
 </div>
 
-<h1>Users</h1>
+<h1><%= t('forms.users') %></h1>
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Username</th>
-      <th scope="col">Email</th>
-      <th scope="col">Is Admin?</th>
-      <th scope="col">Is Superuser?</th>
+      <th scope="col"><%= t('activerecord.attributes.user.username') %></th>
+      <th scope="col"><%= t('activerecord.attributes.user.email') %></th>
+      <th scope="col"><%= t('activerecord.attributes.user.admin') %></th>
+      <th scope="col"><%= t('activerecord.attributes.user.superuser') %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -23,11 +23,11 @@
       <tr>
         <td><%= user.username %></td>
         <td><%= user.email %></td>
-        <td><%= user.admin ? 'Yes' : 'No' %>
-        <td><%= user.superuser ? 'Yes' : 'No' %>
-        <td><%= link_to 'Show', user, class: 'btn btn-outline-primary btn-sm' %></td>
+        <td><%= t(user.admin ? 'yes' : 'no') %></td>
+        <td><%= t(user.superuser ? 'yes' : 'no') %></td>
+        <td><%= link_to t('forms.show'), user, class: 'btn btn-outline-primary btn-sm' %></td>
         <% if !user.admin || @current_user.superuser || user.id == @current_user.id %>
-          <td><%= link_to 'Edit', edit_user_path(user), class: 'btn btn-outline-primary btn-sm' %></td>
+          <td><%= link_to t('forms.edit'), edit_user_path(user), class: 'btn btn-outline-primary btn-sm' %></td>
           <td><%= render 'delete', user: user, current_user: @current_user, small: true %></td>
         <% else %>
           <td colspan=2></td>

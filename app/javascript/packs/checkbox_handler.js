@@ -13,7 +13,7 @@ function disable(adminCheckbox) {
   adminCheckbox.disabled = true;
 }
 
-document.addEventListener('turbolinks:load', () => {
+window.addEventListener('turbolinks:load', () => {
     const superuserCheckbox = document.getElementById("user_superuser");
     const adminCheckbox = document.getElementById("user_admin");
     if(superuserCheckbox.checked) {

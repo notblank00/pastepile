@@ -1,4 +1,4 @@
-<h1>Account</h1>
+<h1><%= t('forms.account') %></h1>
 
 <div class="uniform-control">
   <% flash[:notice]&.tap do |notice| %>
@@ -6,28 +6,28 @@
   <% end %>
 
   <p>
-    <strong>Username:</strong>
+    <strong><%= t('activerecord.attributes.user.username') %>:</strong>
     <%= @user.username %>
   </p>
 
   <p>
-    <strong>Email:</strong>
+    <strong><%= t('activerecord.attributes.user.email') %>:</strong>
     <%= @user.email %>
   </p>
 
   <p>
-    <strong>Is Admin:</strong>
+    <strong><%= t('activerecord.attributes.user.admin') %>:</strong>
     <%= @user.admin ? 'Yes' : 'No' %>
   </p>
 
   <p>
-    <strong>Is Superuser:</strong>
+    <strong><%= t('activerecord.attributes.user.superuser') %>:</strong>
     <%= @user.superuser ? 'Yes' : 'No' %>
   </p>
 
   <div class="btn-group col-12">
   <% unless @user.admin && !@current_user.superuser && !(@user.id == @current_user.id) %>
-    <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary'%>
+    <%= link_to t('forms.edit'), edit_user_path(@user), class: 'btn btn-primary'%>
   <% end %>
   <%= render 'back', current_user: @current_user %>
   </div>

@@ -1,13 +1,13 @@
 <% unless @current_user %>
-  <h1>Sign up</h1>
+  <h1><%= t('forms.sign_up') %></h1>
 <% else %>
-  <h1>New user</h1>
+  <h1><%= t('forms.new_user') %></h1>
 <% end %>
 
 <div class="uniform-control">
   <%= render 'form', user: @user, current_user: @current_user%>
   <% unless @current_user %>
-    <%= link_to 'Sign in', signin_path, class: "btn btn-outline-primary col-12" %>
+    <%= link_to t('forms.sign_in'), signin_path, class: "btn btn-outline-primary col-12" %>
   <% else %>
     <div class="btn-group col-12">
       <%= render 'back', current_user: @current_user %>

@@ -3,18 +3,18 @@
 <% end %>
 
 <div class="top-float">
-  <%= link_to 'New Paste', new_paste_path, class: 'btn btn-outline-success col-12' %>
+  <%= link_to t('forms.new_paste'), new_paste_path, class: 'btn btn-outline-success col-12' %>
 </div>
 
-<h1>Pastes</h1>
+<h1><%= t 'forms.pastes' %></h1>
 
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Language</th>
-      <th>Access</th>
-      <th>Owner</th>
+      <th><%= t('activerecord.attributes.paste.name') %></th>
+      <th><%= t('activerecord.attributes.paste.language') %></th>
+      <th><%= t('activerecord.attributes.paste.private') %></th>
+      <th><%= t('activerecord.attributes.paste.owner') %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -22,13 +22,13 @@
   <tbody>
     <% @pastes.each do |paste| %>
       <tr>
-        <td><%= paste.name %></td>
+        <td><%= paste.name.empty? ? t('activerecord.attributes.paste.untitled') : paste.name %></td>
         <td><%= LANGUAGES.find { |pair| pair.last == paste.language }.first %></td>
-        <td><%= paste.private ? 'Private' : 'Public' %></td>
-        <td><%= paste.users_id ? User.find(paste.users_id).username : 'Anonymous' %></td>
-        <td><%= link_to 'Show', paste, class: 'btn btn-outline-primary btn-sm' %></td>
-        <td><%= link_to 'Edit', edit_paste_path(paste), class: 'btn btn-outline-primary btn-sm' %></td>
-        <td><%= link_to 'Delete', paste, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
+        <td><%= t "activerecord.attributes.paste.#{paste.private ? 'private!' : 'public!'}" %></td>
+        <td><%= paste.users_id ? User.find(paste.users_id).username : t('anonymous') %></td>
+        <td><%= link_to t('forms.show'), paste, class: 'btn btn-outline-primary btn-sm' %></td>
+        <td><%= link_to t('forms.edit'), edit_paste_path(paste), class: 'btn btn-outline-primary btn-sm' %></td>
+        <td><%= link_to t('forms.delete'), paste, method: :delete, data: { confirm: 'forms.messages.are_you_sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
       </tr>
     <% end %>
   </tbody>

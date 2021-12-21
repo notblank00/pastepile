@@ -22,45 +22,47 @@
         <a class="navbar-brand" href="/">PastePile</a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="/">New Paste</a>
+            <a class="nav-link" href="/"><%= t 'forms.new_paste' %></a>
           </li>
           <% if @current_user %>
             <li class="nav-item">
-              <a class="nav-link" href="<%= user_path(@current_user) %>">My account</a>
+              <a class="nav-link" href="<%= user_path(@current_user) %>"><%= t 'forms.my_account' %></a>
             </li>
             <% if @current_user.admin %>
               <li class="nav-item">
-                <a class="nav-link" href="<%= users_path %>">Accounts</a>
+                <a class="nav-link" href="<%= users_path %>"><%= t 'forms.users' %></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/pastes">Pastes</a>
+                <a class="nav-link" href="/pastes"><%= t 'forms.pastes' %></a>
               </li>
             <% else %>
               <li class="nav-item">
-                <a class="nav-link" href="/pastes">My Pastes</a>
+                <a class="nav-link" href="/pastes"><%= t 'forms.my_pastes' %></a>
               </li>
             <% end %>
           <% else %>
             <li class="nav-item">
-              <a class="nav-link" href="<%= signin_path %>">Sign in</a>
+              <a class="nav-link" href="<%= signin_path %>"><%= t 'forms.sign_in' %></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<%= signup_path %>">Sign up</a>
+              <a class="nav-link" href="<%= signup_path %>"><% t 'forms.sign_up' %></a>
             </li>
           <% end %>
         </ul>
           <% if @current_user %>
             <span class="navbar-text">
-              <small>Signed in as <strong><%= @current_user.username %>
+              <small><%= t "forms.signed_in_as" %> <strong><%= @current_user.username %>
                 <% if @current_user.admin %>
-                  (admin<%= ', <span style="color: #dc3545">superuser</span>'.html_safe if @current_user.superuser %>)
+                  (<%= "#{t('activerecord.attributes.user.admin!')}, ".html_safe +
+                  "<span style=\"color: #dc3545\">#{t('activerecord.attributes.user.superuser!')}</span>"
+                    .html_safe if @current_user.superuser %>)
                 <% end %>,
               </strong></small>
             </span>
             <span class="nav-item">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <small><strong>
-                <%= link_to 'Sign out', {controller: :sessions, action: :destroy, id: session[:session_id]}, method: :delete, class: 'nav-link'%>
+                <%= link_to t('forms.sign_out'), {controller: :sessions, action: :destroy, id: session[:session_id]}, method: :delete, class: 'nav-link'%>
                 </strong></small>
               </ul>
             </span>

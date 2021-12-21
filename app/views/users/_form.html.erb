@@ -1,4 +1,5 @@
-<script src="/form_checkbox_handler.js"></script>
+
+<%= javascript_pack_tag 'checkbox_handler', 'data-turbolinks-track': 'reload'%>
 
 <%= form_with(model: user) do |form| %>
   <% if user.errors.any? %>
@@ -13,26 +14,25 @@
       </ul>
     </div>
   <% end %>
-  <%= form.label :username, "Username:" %>
+  <%= form.label :username, t('activerecord.attributes.user.username') %>
   <%= form.text_field(:username, class: "form-control col-12", required: true) %>
-  <%= form.label :email, "Email:" %>
+  <%= form.label :email, t('activerecord.attributes.user.email') %>
   <%= form.text_field(:email, class: "form-control col-12", required: true) %>
-  <%= form.label :password, "Password:" %>
+  <%= form.label :password, t('activerecord.attributes.user.password') %>
   <%= form.password_field(:password, class: "form-control col-12", required: true) %>
   <% unless current_user&.admin %>
-    <%= form.label :password_confirmation, "Confirm password:" %>
+    <%= form.label :password_confirmation, t('activerecord.attributes.user.password_confirmation') %>
     <%= form.password_field(:password_confirmation, class: "form-control col-12", required: true) %>
   <% end %>
   <% if current_user&.superuser %>
-    <script src="/form_checkbox_handler.js"></script>
     <div class="form-check">
       <%= form.check_box :admin, class: 'form-check-input'%>
-      <%= form.label :admin, 'Is Admin', class: 'form-check-label' %>
+      <%= form.label :admin, t('activerecord.attributes.user.admin'), class: 'form-check-label' %>
     </div>
     <div class="form-check">
       <%= form.check_box :superuser, class: "form-check-input" %>
-      <%= form.label :superuser, "Is Superuser", class: "form-check-label" %>
+      <%= form.label :superuser, t('activerecord.attributes.user.superuser'), class: "form-check-label" %>
     </div>
   <% end %>
-  <%= form.submit("Submit", class: "btn btn-primary col-12") %>
+  <%= form.submit t('forms.submit'), class: "btn btn-primary col-12" %>
 <% end %>
