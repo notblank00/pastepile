@@ -26,16 +26,14 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
         format.html do
           flash[:notice] = t('forms.messages.registration_successful')
-          unless session[:current_user_id]
-            session[:current_user_id] = @user.id
-            redirect_to pastes_new
-          else
+          if session[:current_user_id]
             redirect_to users_path
+          else
+            sign_in @user
           end
         end
         format.json { render :show, status: :created, location: @user }
@@ -80,9 +78,7 @@ class UsersController < ApplicationController
   end
 
   def check_if_editing_admin
-    if @user.admin && !(current_user.id == @user.id) && !current_user.superuser
-      refuse_with_method_not_allowed
-    end
+    refuse_with_method_not_allowed if @user.admin && !(current_user.id == @user.id) && !current_user.superuser
   end
 
   # Only allow a list of trusted parameters through.
@@ -95,14 +91,10 @@ class UsersController < ApplicationController
   end
 
   def check_admin_permission
-    unless current_user.admin
-      refuse_with_method_not_allowed
-    end
+    refuse_with_method_not_allowed unless current_user.admin
   end
 
   def check_admin_or_self_permission
-    unless current_user.admin || current_user.id == params[:id].to_i
-      refuse_with_method_not_allowed
-    end
+    refuse_with_method_not_allowed unless current_user.admin || current_user.id == params[:id].to_i
   end
 end

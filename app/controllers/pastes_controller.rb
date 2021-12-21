@@ -2,9 +2,10 @@
 
 LANGUAGES = JSON.parse(File.read("#{Rails.root}/public/languages.json"))
 
+# Pastes controller
 class PastesController < ApplicationController
   before_action :set_paste, only: %i[show edit update destroy]
-  before_action :check_modify_access, only: %i[edit updaate destroy]
+  before_action :check_modify_access, only: %i[edit update destroy]
   before_action :check_view_access, only: %i[show]
   skip_before_action :authenticate, only: %i[new create show]
 
@@ -47,7 +48,7 @@ class PastesController < ApplicationController
   def update
     respond_to do |format|
       if @paste.update(paste_params)
-        format.html { redirect_to @paste, notice: 'forms.messages.paste_was_successfully_updated' }
+        format.html { redirect_to @paste, notice: t('forms.messages.paste_was_successfully_updated') }
         format.json { render :show, status: :ok, location: @paste }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,7 +61,7 @@ class PastesController < ApplicationController
   def destroy
     @paste.destroy
     respond_to do |format|
-      format.html { redirect_to pastes_url, notice: 'forms.messages.paste_was_successfully_destroyed ' }
+      format.html { redirect_to pastes_url, notice: t('forms.messages.paste_was_successfully_destroyed') }
       format.json { head :no_content }
     end
   end
@@ -68,6 +69,7 @@ class PastesController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
+
   def set_paste
     @paste = Paste.find(params[:id])
   end
