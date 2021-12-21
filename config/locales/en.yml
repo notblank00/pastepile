@@ -31,12 +31,19 @@
 
 en:
   forms:
+    pastes: Pastes
+    users: Users
+    account: Account
     copy: Copy this paste
     anonymous: Anonymous
     back: Back
     edit: Edit
+    show: Show
     submit: Submit
     delete: Delete
+    sign_in: Sign in
+    sign_up: Sign up
+    sign_out: Sign out
     content_placeholder: Paste your text/code here!
     errors:
       one: There is an error in form
@@ -53,8 +60,19 @@ en:
         You are deleting your own admin account.
         You will not be able to create a new one, unless you have access to a superuser account.
         Are you sure?
+      invalid_credentials: Invalid credentials
+      paste_was_successfully_created: Paste was successfully created
+      paste_was_successfully_updated: Paste was successfully updated
+      paste_was_successfully_deleted: Paste was successfully deleted
+      registration_successful: Registration successful
+      user_was_successfully_updated: User was successfully updated
+      user_was_successfully_destroyed: User was successfully deleted
     editing_paste: Editing paste
     new_paste: New paste
+    editing_user: Edit user
+    new_user: Register
+    my_pastes: My pastes
+    my_account: My account
     signed_in_as: Signed in as
   activerecord:
     attributes:
@@ -63,9 +81,10 @@ en:
         private?: Is private
         private!: Private
         public!: Public
+        untitled: Untitled
       user:
-        password_confirmation: Confirm password
         admin: Is admin
         admin!: admin
         superuser: Is superuser
         superuser!: superuser
+        password_confirmation: Confirm password

@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate
   before_action :set_current_user
+  around_action :select_locale
 
   def current_user
     User.find(session[:current_user_id])
@@ -25,5 +26,17 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.all { render html: File.read('public/405.html').html_safe, status: :method_not_allowed }
     end
+  end
+
+  def retrieve_locales
+    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/[a-z]{2}/)
+  end
+
+  def valid_locale
+    retrieve_locales.find { |locale| I18n.available_locales.include? locale.intern } || I18n.default_locale
+  end
+
+  def select_locale(&action)
+    I18n.with_locale(valid_locale, &action)
   end
 end

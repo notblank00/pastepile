@@ -47,7 +47,6 @@ ru:
     sign_up: Регистрация
     sign_out: Выйти
     content_placeholder: Просто вставьте сюда текст или код!
-    invalid_credentials: Неверный логин или пароль
     errors:
       one: В форме ошибка
       few: В форме %{count} ошибки
@@ -64,6 +63,13 @@ ru:
         Вы собираетесь удалить собственный аккаунт с правами администратора.
         Вы не сможете создать новый, если у вас нет доступа к аккаунту с правами суперпользователя.
         Вы уверены?
+      invalid_credentials: Неверный логин или пароль
+      paste_was_successfully_created: Паста была успешно создана
+      paste_was_successfully_updated: Паста была успешно обновлен
+      paste_was_successfully_destroyed: Паста была успешно удалена
+      registration_successful: Регистрация прошла успешно
+      user_was_successfully_updated: Пользователь был успешно обновлен
+      user_was_successfully_destroyed: Пользователь был успешно удален
     editing_paste: Редактирование пасты
     new_paste: Новая паста
     editing_user: Редактирование пользователя

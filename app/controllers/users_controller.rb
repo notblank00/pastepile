@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         format.html do
-          flash[:notice] = 'User was successfully created'
+          flash[:notice] = t('forms.messages.registration_successful')
           unless session[:current_user_id]
             session[:current_user_id] = @user.id
             redirect_to pastes_new
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update(user_params)
         format.html do
-          flash[:notice] = 'User was successfully updated'
+          flash[:notice] = t('forms.messages.user_was_successfully_updated')
           redirect_to @user
         end
         format.json { render :show, status: :ok, location: @user }
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      flash[:notice] = 'User was successfully destroyed.'
+      flash[:notice] = t('forms.messages.user_was_successfully_destroyed')
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
