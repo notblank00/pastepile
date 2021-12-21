@@ -30,6 +30,8 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  'yes': 'Yes'
+  'no': 'No'
   forms:
     pastes: Pastes
     users: Users
