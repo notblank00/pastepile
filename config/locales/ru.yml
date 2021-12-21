@@ -47,6 +47,7 @@ ru:
     sign_up: Регистрация
     sign_out: Выйти
     content_placeholder: Просто вставьте сюда текст или код!
+    invalid_credentials: Неверный логин или пароль
     errors:
       one: В форме ошибка
       few: В форме %{count} ошибки

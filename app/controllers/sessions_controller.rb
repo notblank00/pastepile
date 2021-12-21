@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   def new; end
 
   def invalid_credentials_error
-    flash[:error] = 'Invalid credentials'
+    flash[:error] = t('forms.invalid_credentials')
     redirect_to action: :new
   end
 
