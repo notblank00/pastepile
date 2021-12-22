@@ -48,7 +48,7 @@ en:
     sign_in: Sign in
     sign_up: Sign up
     sign_out: Sign out
-    search_results_for: Search results for
+    search_results_for: 'Search results for:'
     content_placeholder: Paste your text/code here!
     errors:
       one: There is an error in form

@@ -49,6 +49,7 @@ ru:
     sign_up: Регистрация
     sign_out: Выйти
     nothing_found: Ничего не найдено
+    search_results_for: 'Результаты поиска:'
     content_placeholder: Просто вставьте сюда текст или код!
     errors:
       one: В форме ошибка
