@@ -38,6 +38,8 @@ ru:
     account: Аккаунт
     copy: Скопировать код
     anonymous: Аноним
+    search: Поиск
+    reset: Сброс
     back: Назад
     edit: Редактировать
     show: Показать
@@ -46,6 +48,7 @@ ru:
     sign_in: Вход
     sign_up: Регистрация
     sign_out: Выйти
+    nothing_found: Ничего не найдено
     content_placeholder: Просто вставьте сюда текст или код!
     errors:
       one: В форме ошибка

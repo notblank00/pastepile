@@ -9,7 +9,10 @@ class UsersController < ApplicationController
   skip_before_action :authenticate, only: %i[new create]
   # GET /users or /users.json
   def index
-    @users = User.all
+    query = {
+      username: params[:username].presence
+    }.compact
+    @users = search_query(query, params[:page].to_i || 0)
   end
 
   # GET /users/1 or /users/1.json
@@ -79,6 +82,14 @@ class UsersController < ApplicationController
 
   def check_if_editing_admin
     refuse_with_method_not_allowed if @user.admin && !(current_user.id == @user.id) && !current_user.superuser
+  end
+
+  def search_query(query, page)
+    [if query.any?
+       User.where(query).limit(PER_PAGE).offset(PER_PAGE * page)
+     else
+       User.all.limit(PER_PAGE).offset(PER_PAGE * page)
+     end].flatten.compact
   end
 
   # Only allow a list of trusted parameters through.

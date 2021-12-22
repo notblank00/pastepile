@@ -38,6 +38,8 @@ en:
     account: Account
     copy: Copy this paste
     anonymous: Anonymous
+    search: Search
+    reset: Reset
     back: Back
     edit: Edit
     show: Show
@@ -65,7 +67,7 @@ en:
       invalid_credentials: Invalid credentials
       paste_was_successfully_created: Paste was successfully created
       paste_was_successfully_updated: Paste was successfully updated
-      paste_was_successfully_deleted: Paste was successfully deleted
+      paste_was_successfully_destroyed: Paste was successfully deleted
       registration_successful: Registration successful
       user_was_successfully_updated: User was successfully updated
       user_was_successfully_destroyed: User was successfully deleted

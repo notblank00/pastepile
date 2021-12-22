@@ -11,12 +11,15 @@ class PastesController < ApplicationController
 
   # GET /pastes or /pastes.json
   def index
-    @pastes = if @current_user.admin
-                Paste.all
-              else
-                Paste.find_by(users_id: current_user.id)
-              end
-    @pastes = [@pastes].flatten.compact
+    query = {
+      name: params[:name].presence
+    }.compact
+    if @current_user.admin
+      query[:users_id] = find_user_id(params[:username]) if params[:username].presence
+    else
+      query[:users_id] = @current_user.id
+    end
+    @pastes = search_query(query, params[:page].to_i || 0)
   end
 
   # GET /pastes/1 or /pastes/1.json
@@ -80,6 +83,22 @@ class PastesController < ApplicationController
 
   def check_modify_access
     refuse_with_method_not_allowed unless current_user&.admin || @paste.users_id == current_user.id
+  end
+
+  def find_user_id(username)
+    User.find_by(username: username)&.id
+  end
+
+  def search_query(query, page)
+    if query.key?(:users_id) && query[:users_id].nil?
+      []
+    else
+      [if query.any?
+         Paste.where(query).limit(PER_PAGE).offset(PER_PAGE * page)
+       else
+         Paste.all.limit(PER_PAGE).offset(PER_PAGE * page)
+       end].flatten.compact
+    end
   end
 
   # Only allow a list of trusted parameters through.
