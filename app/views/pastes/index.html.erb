@@ -21,6 +21,18 @@
   <% end %>
 </div>
 
+<h2 style="margin-left: 50px">
+  <% if @params[:name].presence || @params[:username].presence %>
+    <%= t('forms.search_results_for') %>
+    <% if @params[:name].presence %>
+      <%= t('activerecord.attributes.paste.name') + ": \'#{@params[:name]}\'" if @params[:name] %>
+    <% end %>
+    <% if @params[:username].presence %>
+      <%= t('activerecord.attributes.paste.owner') + ": \'#{@params[:username]}\'" if @params[:username] %>
+    <% end %>
+  <% end %>
+</h2>
+
 <% if @pastes.none? %>
   <%= render 'nothing_found' %>
 <% else %>
