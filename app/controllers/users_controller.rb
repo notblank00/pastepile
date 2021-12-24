@@ -109,7 +109,7 @@ class UsersController < ApplicationController
   end
 
   def update_user(submitted_user_params)
-    if current_user&.admin and params[:password].blank?
+    if current_user&.admin && submitted_user_params[:password].blank?
       @user.update_columns(user_params.to_unsafe_h.except(:password))
     else
       @user.update(user_params)
