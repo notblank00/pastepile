@@ -13,7 +13,7 @@ class PastesController < ApplicationController
   def index
     @pastes = search_query({
       name: params[:name].presence,
-      username: @current_user&.admin ? find_user_id(params[:username]) : @current_user.id
+      users_id: @current_user&.admin ? find_user_id(params[:username]) : @current_user.id
     }.compact, params[:page].to_i || 0)
   end
 

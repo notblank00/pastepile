@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-def create_paste
+def create_paste(name = 'test_paste', content = 'content')
   visit '/'
-  fill_in 'Name', with: 'test_paste'
-  fill_in 'Content', with: 'content'
+  fill_in 'Name', with: name
+  fill_in 'Content', with: content
   click_on 'Submit'
   page.current_path
 end
@@ -77,5 +77,38 @@ describe 'Paste system', type: :feature do
     signin('another', 'pswd')
     visit "#{paste_path}/edit"
     expect(page.body).not_to include 'Content'
+  end
+
+  it 'allows to index and search own pastes' do
+    create_user
+    signin
+    create_paste
+    create_paste 'another', 'text'
+    visit '/pastes'
+    expect(page.body).to include('Pastes')
+    expect(page.body).to include('test_paste')
+    expect(page.body).to include('another')
+    fill_in 'Name', with: 'test_paste'
+    click_on 'Search'
+    expect(page.body).to include('test_paste')
+    expect(page.body).not_to include('another')
+  end
+
+  it 'allows admin index and search all pastes' do
+    Rails.application.load_seed
+    create_user
+    signin
+    create_paste
+    create_paste 'another', 'text'
+    click_on 'Sign out'
+    signin 'root', 'root'
+    visit '/pastes'
+    expect(page.body).to include('Pastes')
+    expect(page.body).to include('test_paste')
+    expect(page.body).to include('another')
+    fill_in 'Name', with: 'test_paste'
+    click_on 'Search'
+    expect(page.body).to include('test_paste')
+    expect(page.body).not_to include('another')
   end
 end

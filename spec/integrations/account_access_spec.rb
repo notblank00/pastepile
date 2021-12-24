@@ -67,4 +67,19 @@ describe 'Access control system', type: :feature do
     click_on 'Submit'
     expect(User.find_by(username: USERNAME).admin).to be true
   end
+
+  it 'allows admin to index and search accounts' do
+    Rails.application.load_seed
+    create_user
+    create_user('another', 'another', 'pswd')
+    signin('root', 'root')
+    visit '/users'
+    expect(page.body).to include('Users')
+    expect(page.body).to include('test_user')
+    expect(page.body).to include('another')
+    fill_in 'Username', with: 'another'
+    click_on 'Search'
+    expect(page.body).to include('another')
+    expect(page.body).not_to include(USERNAME)
+  end
 end
