@@ -13,9 +13,9 @@
       </div>
     <% end %>
 
-    <div style="float: right; width: calc(100% - 450px)">
+    <div style="width: calc(100% - 450px); position: absolute; top: 152px; bottom: 50px; right: 20px">
       <%= form.label :content, t('activerecord.attributes.paste.content') %>
-      <%= form.text_area :content, class: 'form-control', style: 'height: 700px; resize: none',
+      <%= form.text_area :content, class: 'form-control', style: 'resize: none; height: 100%',
                                    placeholder: t('forms.content_placeholder'), autofocus: true, autocomplete: 'off'%>
     </div>
     <div class="inner-control">

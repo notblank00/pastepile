@@ -46,18 +46,18 @@
         </ul>
           <% if @current_user %>
             <span class="navbar-text">
-              <small><%= t "forms.signed_in_as" %> <strong><%= @current_user.username %>
-                <% if @current_user.admin %>
-                  (<%= "#{t('activerecord.attributes.user.admin!')}, ".html_safe +
+              <small><%= t "forms.signed_in_as" %>
+              <% if @current_user.admin %>
+                  [<%= "#{t('activerecord.attributes.user.admin!')}, ".html_safe +
                   "<span style=\"color: #dc3545\">#{t('activerecord.attributes.user.superuser!')}</span>"
-                    .html_safe if @current_user.superuser %>)
-                <% end %>,
+                    .html_safe if @current_user.superuser %>]
+              <% end %>
+              <strong>
+              <%= @current_user.username %>,
               </strong></small>
-            </span>
-            <span class="nav-item">
+            </span><span class="nav-item">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <small><strong>
-                <%= link_to t('forms.sign_out'), {controller: :sessions, action: :destroy, id: session[:session_id]}, method: :delete, class: 'nav-link'%>
+                <small><strong><%= link_to t('forms.sign_out'), {controller: :sessions, action: :destroy, id: session[:session_id]}, method: :delete, class: 'nav-link'%>
                 </strong></small>
               </ul>
             </span>

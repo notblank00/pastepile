@@ -22,7 +22,7 @@
 </div>
 
 <h2 style="margin-left: 50px">
-  <% if @params[:name].presence || @params[:username].presence %>
+  <% if request_name = @params[:name].presence || request_username = @params[:username].presence %>
     <%= t('forms.search_results_for') %>
     <% if @params[:name].presence %>
       <%= t('activerecord.attributes.paste.name') + ": \'#{@params[:name]}\'" if @params[:name] %>
@@ -50,7 +50,7 @@
     <tbody>
       <% @pastes.each do |paste| %>
         <tr>
-          <td><%= paste.name.empty? ? t('activerecord.attributes.paste.untitled') : paste.name %></td>
+          <td><%= !paste.name&.presence ? t('activerecord.attributes.paste.untitled') : paste.name %></td>
           <td><%= LANGUAGES.find { |pair| pair.last == paste.language }.first %></td>
           <td><%= t "activerecord.attributes.paste.#{paste.private ? 'private!' : 'public!'}" %></td>
           <td><%= paste.users_id ? User.find(paste.users_id).username : t('anonymous') %></td>

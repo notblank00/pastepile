@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   before_action :check_admin_permission, only: :index
   before_action :check_admin_or_self_permission, except: %i[index new create]
   skip_before_action :authenticate, only: %i[new create]
-  # GET /users or /users.json
+  # GET /users
   def index
     query = {
       username: params[:username].presence
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @users = search_query(query, params[:page].to_i || 0)
   end
 
-  # GET /users/1 or /users/1.json
+  # GET /users/1
   def show; end
 
   # GET /users/new
@@ -26,28 +26,22 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit; end
 
-  # POST /users or /users.json
+  # POST /users
   def create
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
         format.html do
           flash[:notice] = t('forms.messages.registration_successful')
-          if session[:current_user_id]
-            redirect_to users_path
-          else
-            sign_in @user
-          end
+          redirect_to_index
         end
-        format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /users/1 or /users/1.json
+  # PATCH/PUT /users/1
   def update
     respond_to do |format|
       if @user.update(user_params)
@@ -55,21 +49,18 @@ class UsersController < ApplicationController
           flash[:notice] = t('forms.messages.user_was_successfully_updated')
           redirect_to @user
         end
-        format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /users/1 or /users/1.json
+  # DELETE /users/1
   def destroy
     @user.destroy
     respond_to do |format|
       flash[:notice] = t('forms.messages.user_was_successfully_destroyed')
       format.html { redirect_to users_url }
-      format.json { head :no_content }
     end
   end
 
@@ -81,7 +72,7 @@ class UsersController < ApplicationController
   end
 
   def check_if_editing_admin
-    refuse_with_method_not_allowed if @user.admin && !(current_user.id == @user.id) && !current_user.superuser
+    refuse_with_method_not_allowed if @user.admin && current_user.id != @user.id && !current_user.superuser
   end
 
   def search_query(query, page)
@@ -98,6 +89,14 @@ class UsersController < ApplicationController
       params.require(:user).permit(:username, :email, :password, :password_confirmation, :admin, :superuser)
     else
       params.require(:user).permit(:username, :email, :password, :password_confirmation)
+    end
+  end
+
+  def redirect_to_index
+    if session[:current_user_id]
+      redirect_to users_path
+    else
+      sign_in @user
     end
   end
 

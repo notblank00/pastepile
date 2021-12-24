@@ -9,20 +9,15 @@ class PastesController < ApplicationController
   before_action :check_view_access, only: %i[show]
   skip_before_action :authenticate, only: %i[new create show]
 
-  # GET /pastes or /pastes.json
+  # GET /pastes
   def index
-    query = {
-      name: params[:name].presence
-    }.compact
-    if @current_user.admin
-      query[:users_id] = find_user_id(params[:username]) if params[:username].presence
-    else
-      query[:users_id] = @current_user.id
-    end
-    @pastes = search_query(query, params[:page].to_i || 0)
+    @pastes = search_query({
+      name: params[:name].presence,
+      username: @current_user&.admin ? find_user_id(params[:username]) : @current_user.id
+    }.compact, params[:page].to_i || 0)
   end
 
-  # GET /pastes/1 or /pastes/1.json
+  # GET /pastes/1
   def show; end
 
   # GET /pastes/new
@@ -33,39 +28,34 @@ class PastesController < ApplicationController
   # GET /pastes/1/edit
   def edit; end
 
-  # POST /pastes or /pastes.json
+  # POST /pastes
   def create
     @paste = Paste.new(paste_params)
     respond_to do |format|
       if @paste.save
         format.html { redirect_to @paste, notice: t('forms.messages.paste_was_successfully_created') }
-        format.json { render :show, status: :created, location: @paste }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @paste.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /pastes/1 or /pastes/1.json
+  # PATCH/PUT /pastes/1
   def update
     respond_to do |format|
       if @paste.update(paste_params)
         format.html { redirect_to @paste, notice: t('forms.messages.paste_was_successfully_updated') }
-        format.json { render :show, status: :ok, location: @paste }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @paste.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /pastes/1 or /pastes/1.json
+  # DELETE /pastes/1
   def destroy
     @paste.destroy
     respond_to do |format|
       format.html { redirect_to pastes_url, notice: t('forms.messages.paste_was_successfully_destroyed') }
-      format.json { head :no_content }
     end
   end
 
@@ -86,6 +76,7 @@ class PastesController < ApplicationController
   end
 
   def find_user_id(username)
+    nil unless username.presence
     User.find_by(username: username)&.id
   end
 
