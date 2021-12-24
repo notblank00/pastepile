@@ -4,8 +4,8 @@ PER_PAGE = 20
 
 # This is the base controller for the app
 class ApplicationController < ActionController::Base
-  before_action :preserve_params, only: %i[index]
-  before_action :count_pages, only: %i[index]
+  before_action :preserve_params, only: :index
+  before_action :count_pages, only: :index
   before_action :authenticate
   before_action :set_current_user
   around_action :select_locale
@@ -38,11 +38,11 @@ class ApplicationController < ActionController::Base
   end
 
   def retrieve_locales
-    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/[a-z]{2}/)
+    request.env['HTTP_ACCEPT_LANGUAGE']&.scan(/[a-z]{2}/)
   end
 
   def valid_locale
-    retrieve_locales.find { |locale| I18n.available_locales.include? locale.intern } || I18n.default_locale
+    retrieve_locales&.find { |locale| I18n.available_locales.include? locale.intern } || I18n.default_locale
   end
 
   def select_locale(&action)

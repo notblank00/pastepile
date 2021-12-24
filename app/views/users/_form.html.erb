@@ -19,10 +19,10 @@
   <%= form.label :email, t('activerecord.attributes.user.email') %>
   <%= form.text_field(:email, class: "form-control col-12", required: true) %>
   <%= form.label :password, t('activerecord.attributes.user.password') %>
-  <%= form.password_field(:password, class: "form-control col-12", required: true) %>
+  <%= form.password_field(:password, class: "form-control col-12", required: password_required) %>
   <% unless current_user&.admin %>
     <%= form.label :password_confirmation, t('activerecord.attributes.user.password_confirmation') %>
-    <%= form.password_field(:password_confirmation, class: "form-control col-12", required: true) %>
+    <%= form.password_field(:password_confirmation, class: "form-control col-12", required: password_required) %>
   <% end %>
   <% if current_user&.superuser %>
     <div class="form-check">

@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     respond_to do |format|
-      if @user.update(user_params)
+      if update_user(user_params) # this contraption means 'accept updates without password'
         format.html do
           flash[:notice] = t('forms.messages.user_was_successfully_updated')
           redirect_to @user
@@ -106,5 +106,13 @@ class UsersController < ApplicationController
 
   def check_admin_or_self_permission
     refuse_with_method_not_allowed unless current_user.admin || current_user.id == params[:id].to_i
+  end
+
+  def update_user(submitted_user_params)
+    if current_user&.admin and params[:password].blank?
+      @user.update_columns(user_params.to_unsafe_h.except(:password))
+    else
+      @user.update(user_params)
+    end
   end
 end

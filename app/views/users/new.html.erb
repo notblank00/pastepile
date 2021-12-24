@@ -5,7 +5,7 @@
 <% end %>
 
 <div class="uniform-control">
-  <%= render 'form', user: @user, current_user: @current_user%>
+  <%= render 'form', user: @user, current_user: @current_user, password_required: true %>
   <% unless @current_user %>
     <%= link_to t('forms.sign_in'), signin_path, class: "btn btn-outline-primary col-12" %>
   <% else %>
