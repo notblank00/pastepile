@@ -12,8 +12,10 @@
   <%= form_with url: pastes_path, method: :get do |form| %>
     <%= form.label :name, t('activerecord.attributes.paste.name') %>
     <%= form.text_field(:name, class: "form-control col-12", value: @params[:name]) %>
-    <%= form.label :username, t('activerecord.attributes.paste.owner') %>
-    <%= form.text_field(:username, class: "form-control col-12", value: @params[:username]) %>
+    <% if @current_user.admin %>
+      <%= form.label :username, t('activerecord.attributes.paste.owner') %>
+      <%= form.text_field(:username, class: "form-control col-12", value: @params[:username]) %>
+    <% end %>
     <div class="btn-group col-12">
       <%= form.submit t('forms.search'), class: "btn btn-primary" %>
       <%= link_to t('forms.reset'), pastes_path, class: "btn btn-secondary", style: "margin-bottom: 10px" %>
