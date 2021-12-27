@@ -31,6 +31,7 @@ class PastesController < ApplicationController
   # POST /pastes
   def create
     @paste = Paste.new(paste_params)
+    @paste.users_id =  current_user.id
     respond_to do |format|
       if @paste.save
         format.html { redirect_to @paste, notice: t('forms.messages.paste_was_successfully_created') }
@@ -94,7 +95,6 @@ class PastesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def paste_params
-    params[:paste][:users_id] = current_user&.id
     params.require(:paste).permit(:name, :content, :language, :private, :users_id)
   end
 end
