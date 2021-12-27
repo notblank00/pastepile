@@ -13,7 +13,7 @@ class PastesController < ApplicationController
   def index
     @pastes = search_query({
       name: params[:name].presence,
-      users_id: @current_user&.admin ? find_user_id(params[:username]) : @current_user.id
+      user_id: @current_user&.admin ? find_user_id(params[:username]) : @current_user
     }.compact, params[:page].to_i || 0)
   end
 
@@ -31,7 +31,7 @@ class PastesController < ApplicationController
   # POST /pastes
   def create
     @paste = Paste.new(paste_params)
-    @paste.users_id =  current_user.id
+    @paste.user =  current_user
     respond_to do |format|
       if @paste.save
         format.html { redirect_to @paste, notice: t('forms.messages.paste_was_successfully_created') }
@@ -69,11 +69,11 @@ class PastesController < ApplicationController
   end
 
   def check_view_access
-    refuse_with_method_not_allowed unless !@paste.private || current_user&.admin || @paste.users_id == current_user&.id
+    refuse_with_method_not_allowed unless !@paste.private || current_user&.admin || @paste.user == current_user
   end
 
   def check_modify_access
-    refuse_with_method_not_allowed unless current_user&.admin || @paste.users_id == current_user.id
+    refuse_with_method_not_allowed unless current_user&.admin || @paste.user == current_user
   end
 
   def find_user_id(username)
@@ -82,7 +82,7 @@ class PastesController < ApplicationController
   end
 
   def search_query(query, page)
-    if query.key?(:users_id) && query[:users_id].nil?
+    if query.key?(:user_id) && query[:user_id].nil?
       []
     else
       [if query.any?

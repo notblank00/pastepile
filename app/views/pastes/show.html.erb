@@ -27,11 +27,11 @@
   </p>
   <p>
     <strong><%= t('activerecord.attributes.paste.owner') %>:</strong>
-    <%= @paste.users_id ? User.find(@paste.users_id).username : t('forms.anonymous') %>
+    <%= @paste.anonymous? ? t('forms.anonymous') : @paste.user.username %>
   </p>
 
   <div class="btn-group col-12">
-  <% if @current_user&.id == @paste.users_id || @current_user&.admin %>
+  <% if @current_user&.== @paste.user || @current_user&.admin %>
     <%= link_to t('forms.edit'), edit_paste_path(@paste), class: 'btn btn-primary' %>
   <% end %>
     <%= render 'back' %>

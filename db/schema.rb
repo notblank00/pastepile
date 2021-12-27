@@ -16,14 +16,14 @@ ActiveRecord::Schema.define(version: 2021_12_19_162932) do
   enable_extension "plpgsql"
 
   create_table "pastes", force: :cascade do |t|
-    t.bigint "users_id"
+    t.bigint "user_id"
     t.string "name"
     t.text "content", null: false
     t.string "language"
     t.boolean "private", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["users_id"], name: "index_pastes_on_users_id"
+    t.index ["user_id"], name: "index_pastes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

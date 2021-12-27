@@ -9,6 +9,6 @@ class Paste < ApplicationRecord
   end
 
   def anonymous?
-    users_id.blank?
+    user.nil?
   end
 end

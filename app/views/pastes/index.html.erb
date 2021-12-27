@@ -55,7 +55,7 @@
           <td><%= !paste.name&.presence ? t('activerecord.attributes.paste.untitled') : paste.name %></td>
           <td><%= LANGUAGES.find { |pair| pair.last == paste.language }.first %></td>
           <td><%= t "activerecord.attributes.paste.#{paste.private ? 'private!' : 'public!'}" %></td>
-          <td><%= paste.users_id ? User.find(paste.users_id).username : t('anonymous') %></td>
+          <td><%= paste.anonymous? ? t('forms.anonymous') : paste.user.username %></td>
           <td><%= link_to t('forms.show'), paste, class: 'btn btn-outline-primary btn-sm' %></td>
           <td><%= link_to t('forms.edit'), edit_paste_path(paste), class: 'btn btn-outline-primary btn-sm' %></td>
           <td><%= link_to t('forms.delete'), paste, method: :delete, data: { confirm: t('forms.messages.are_you_sure?') }, class: 'btn btn-outline-danger btn-sm' %></td>
