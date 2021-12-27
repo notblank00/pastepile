@@ -14,14 +14,14 @@
     <% end %>
 
     <div style="width: calc(100% - 450px); position: absolute; top: 152px; bottom: 50px; right: 20px">
-      <%= form.label :content, t('activerecord.attributes.paste.content') %>
+      <%= form.label :content %>
       <%= form.text_area :content, class: 'form-control', style: 'resize: none; height: 100%',
                                    placeholder: t('forms.content_placeholder'), autofocus: true, autocomplete: 'off'%>
     </div>
     <div class="inner-control">
-      <%= form.label :name, t('activerecord.attributes.paste.name') %>
+      <%= form.label :name %>
       <%= form.text_field :name, class: 'form-control', placeholder: t('activerecord.attributes.paste.untitled'), autocomplete: 'off' %>
-      <%= form.label :language, t('activerecord.attributes.paste.language') %>
+      <%= form.label :language %>
       <%= form.select :language, LANGUAGES, { include_blank: false }, class: 'form-select' %>
     </div>
     <% if current_user %>

@@ -69,7 +69,7 @@ ru:
         Вы уверены?
       invalid_credentials: Неверный логин или пароль
       paste_was_successfully_created: Паста была успешно создана
-      paste_was_successfully_updated: Паста была успешно обновлен
+      paste_was_successfully_updated: Паста была успешно обновлена
       paste_was_successfully_destroyed: Паста была успешно удалена
       registration_successful: Регистрация прошла успешно
       user_was_successfully_updated: Пользователь был успешно обновлен

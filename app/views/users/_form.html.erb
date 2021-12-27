@@ -14,24 +14,24 @@
       </ul>
     </div>
   <% end %>
-  <%= form.label :username, t('activerecord.attributes.user.username') %>
+  <%= form.label :username %>
   <%= form.text_field(:username, class: "form-control col-12", required: true) %>
-  <%= form.label :email, t('activerecord.attributes.user.email') %>
+  <%= form.label :email %>
   <%= form.text_field(:email, class: "form-control col-12", required: true) %>
-  <%= form.label :password, t('activerecord.attributes.user.password') %>
+  <%= form.label :password %>
   <%= form.password_field(:password, class: "form-control col-12", required: password_required) %>
   <% unless current_user&.admin %>
-    <%= form.label :password_confirmation, t('activerecord.attributes.user.password_confirmation') %>
+    <%= form.label :password_confirmation %>
     <%= form.password_field(:password_confirmation, class: "form-control col-12", required: password_required) %>
   <% end %>
   <% if current_user&.superuser %>
     <div class="form-check">
       <%= form.check_box :admin, class: 'form-check-input'%>
-      <%= form.label :admin, t('activerecord.attributes.user.admin'), class: 'form-check-label' %>
+      <%= form.label :admin, class: 'form-check-label' %>
     </div>
     <div class="form-check">
       <%= form.check_box :superuser, class: "form-check-input" %>
-      <%= form.label :superuser, t('activerecord.attributes.user.superuser'), class: "form-check-label" %>
+      <%= form.label :superuser, class: "form-check-label" %>
     </div>
   <% end %>
   <%= form.submit t('forms.submit'), class: "btn btn-primary col-12" %>
