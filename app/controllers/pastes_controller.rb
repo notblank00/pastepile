@@ -95,6 +95,6 @@ class PastesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def paste_params
-    params.require(:paste).permit(:name, :content, :language, :private, :users_id)
+    params.require(:paste).permit(:name, :content, :language, :private)
   end
 end
