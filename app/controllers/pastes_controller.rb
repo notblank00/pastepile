@@ -31,7 +31,7 @@ class PastesController < ApplicationController
   # POST /pastes
   def create
     @paste = Paste.new(paste_params)
-    @paste.user =  current_user
+    @paste.user = current_user
     respond_to do |format|
       if @paste.save
         format.html { redirect_to @paste, notice: t('forms.messages.paste_was_successfully_created') }
