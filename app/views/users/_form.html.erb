@@ -4,7 +4,7 @@
 <%= form_with(model: user) do |form| %>
   <% if user.errors.any? %>
     <div class="alert alert-danger" role="alert">
-      <b><%= pluralize(user.errors.count, "error") %> in form:</b>
+      <b><%= t 'forms.errors', count: paste.errors.count %></b>
       <ul>
         <% user.errors.each do |error| %>
           <li><small>
