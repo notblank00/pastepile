@@ -13,18 +13,16 @@ function disable(adminCheckbox) {
   adminCheckbox.disabled = true;
 }
 
-window.addEventListener('turbolinks:load', () => {
-    const superuserCheckbox = document.getElementById("user_superuser");
-    const adminCheckbox = document.getElementById("user_admin");
-    if(superuserCheckbox.checked) {
-      disable(adminCheckbox);
-    }
-    superuserCheckbox.addEventListener('change', (event) => {
-      if(superuserCheckbox.checked) {
-        disable(adminCheckbox);
-      }
-      else {
-        enable(adminCheckbox);
-      }
-    });
+const superuserCheckbox = document.getElementById("user_superuser");
+const adminCheckbox = document.getElementById("user_admin");
+if(superuserCheckbox.checked) {
+  disable(adminCheckbox);
+}
+superuserCheckbox.addEventListener('change', (event) => {
+  if(superuserCheckbox.checked) {
+    disable(adminCheckbox);
+  }
+  else {
+    enable(adminCheckbox);
+  }
 });
