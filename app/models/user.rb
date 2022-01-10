@@ -7,8 +7,5 @@ class User < ApplicationRecord
 
   # a superuser account with admin = false is not valid,
   # since superuser is a subset of admin
-  validates_inclusion_of :admin, in: [true], if: :superuser?, message: 'must also be checked for a superuser account'
-  def superuser?
-    superuser
-  end
+  validates_inclusion_of :admin, in: [true], if: :superuser, message: 'must also be checked for a superuser account'
 end
