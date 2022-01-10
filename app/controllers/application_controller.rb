@@ -54,6 +54,6 @@ class ApplicationController < ActionController::Base
   end
 
   def count_pages
-    @pages = User.count / PER_PAGE + 1
+    @pages = (User.count / PER_PAGE) + 1
   end
 end

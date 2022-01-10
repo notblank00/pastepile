@@ -82,7 +82,7 @@ class PastesController < ApplicationController
   end
 
   def search_query(query, page)
-    if query.key?(:user_id) && query[:user_id].nil?
+    if query.key?(:user_id) && !query[:user_id]
       []
     else
       [if query.any?

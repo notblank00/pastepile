@@ -1,0 +1,9 @@
+detectors:
+  DuplicateMethodCall:
+    enabled: false
+  InstanceVariableAssumption:
+    enabled: false
+  UtilityFunction:
+    enabled: false
+  TooManyStatements:
+    enabled: false

@@ -6,16 +6,16 @@ end
 
 describe User, type: :model do
   after(:all) { User.delete_all }
-  it 'should validate a normal user' do
+  it 'validates a normal user' do
     User.create(username: 'user', email: 'doesn\'t@matter', password: 'pswd')
   end
 
-  it 'should not validate a user with mismatching confirmation' do
+  it 'does not validate a user with mismatching confirmation' do
     user = User.new(username: 'test_user', email: 'email', password: 'pswd', password_confirmation: 'dwsp')
     expect(user).not_to be_valid
   end
 
-  it 'should not validate non-unique username or email' do
+  it 'does not validate non-unique username or email' do
     add_user_to_db
     match_name = User.new(username: 'test_user', email: 'new_test@email', password: 'pswd')
     match_email = User.new(username: 'new_test_user', email: 'email', password: 'pswd')
